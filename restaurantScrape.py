@@ -32,5 +32,8 @@ for address in page.find_all("address"):
 
 baconList.close()
 
-        
+phoneList = open('phone.csv', 'w')
+for span in page.find_all("span", "biz-phone"):
+        page.strippedstrings
+        phoneList.write(span.text + "\n")
 
