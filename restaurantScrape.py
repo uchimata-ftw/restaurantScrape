@@ -18,11 +18,19 @@ page = bs4.BeautifulSoup(res.text, "lxml")
 page.prettify()
 type(page)
 
-baconFile = open('restaurant.txt', 'w',)
+baconFile = open('restaurant.csv', 'w')
 for span in page.find_all("a", "biz-name"):
         page.strippedstrings
         baconFile.write(span.text + "\n")
 
 baconFile.close()
+
+baconList = open('address.csv', 'w')
+for address in page.find_all("address"):
+        page.strippedstrings
+        baconList.write(address.text + "\n")
+
+baconList.close()
+
         
 
