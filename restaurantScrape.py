@@ -14,26 +14,28 @@ res = requests.get(address)
 
 res.raise_for_status()
 
+#formats web Page
 page = bs4.BeautifulSoup(res.text, "lxml")
 page.prettify()
 type(page)
 
+#scrapes for restaurant page and writes to csv file
 baconFile = open('restaurant.csv', 'w')
 for span in page.find_all("a", "biz-name"):
         page.strippedstrings
         baconFile.write(span.text + "\n")
-
 baconFile.close()
 
+#scrapes for addresses and writes to csv file
 baconList = open('address.csv', 'w')
 for address in page.find_all("address"):
         page.strippedstrings
         baconList.write(address.text + "\n")
-
 baconList.close()
 
+#scrapes for phone numbers and writes to csv file
 phoneList = open('phone.csv', 'w')
 for span in page.find_all("span", "biz-phone"):
         page.strippedstrings
         phoneList.write(span.text + "\n")
-
+phoneList.close()
