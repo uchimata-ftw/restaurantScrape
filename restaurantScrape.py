@@ -1,14 +1,10 @@
 #! /usr/bin/python3
 
-import bs4, requests, os, sys, pyperclip, csv
+import bs4, requests, os, pyperclip, csv
 
-#get webPage address go scrape from command line or clipboard
+#get webPage address go scrape from clipboard
 
-if len(sys.argv) > 1:
-    address = ' '.join(sys.argv[1:])
-
-else:
-    address = pyperclip.paste();
+address = pyperclip.paste();
 
 res = requests.get(address)
 
@@ -20,22 +16,35 @@ page.prettify()
 type(page)
 
 #scrapes for restaurant page and writes to csv file
-baconFile = open('restaurant.csv', 'w')
+nameArray = []
 for span in page.find_all("a", "biz-name"):
         page.strippedstrings
-        baconFile.write(span.text + "\n")
-baconFile.close()
+        nameArray.append(span.text)
 
 #scrapes for addresses and writes to csv file
-baconList = open('address.csv', 'w')
+addressArray = []
 for address in page.find_all("address"):
         page.strippedstrings
-        baconList.write(address.text + "\n")
-baconList.close()
+        addressArray.append(address.text)
 
 #scrapes for phone numbers and writes to csv file
-phoneList = open('phone.csv', 'w')
+phoneArray = []
 for span in page.find_all("span", "biz-phone"):
         page.strippedstrings
-        phoneList.write(span.text + "\n")
-phoneList.close()
+        phoneArray.append(span.text)
+
+#writes list to file called restaurant.csv
+f = open('restaurant.csv', 'a')
+for i in range(len(nameArray)):
+        f.write(nameArray[i] + "\n")
+f.close()
+
+f = open('phone.csv', 'a')
+for i in range(len(phoneArray)):
+        f.write(phoneArray[i] + "\n")
+f.close()
+
+f = open('address.csv', 'a')
+for i in range(len(addressArray)):
+        f.write(addressArray[i] + "\n")
+f.close()
